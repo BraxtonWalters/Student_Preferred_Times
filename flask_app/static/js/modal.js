@@ -20,8 +20,8 @@ allModelBtns.forEach(btn => {
         console.log("I'm clicked");
         let wrapperName = btn.getAttribute("target")
         let wrapper = document.querySelector(`.${wrapperName}`)
+        console.log(wrapper);
         wrapper.classList.remove("d-none");
         wrapper.classList.add("d-flex");
-
     })
 });

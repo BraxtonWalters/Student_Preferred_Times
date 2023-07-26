@@ -1,6 +1,8 @@
 from flask_app import app, bcrypt
 from flask import render_template, redirect, request, session
 from flask_app.models.model_user import User
+from flask_app.models.model_time import Time
+from flask_app.models.model_day import Day
 
 @app.route("/user/create/display")
 def user_display():
@@ -30,7 +32,9 @@ def dashboard():
     if "user_id" not in session:
         return redirect("/")
     user = User.get_by_id({"id": session["user_id"]})
-    return render_template("dashboard.html", user=user)
+    time_slots = Time.get_all_times()
+    all_days = Day.get_all_days()
+    return render_template("dashboard.html", user=user, time_slots=time_slots, all_days=all_days)
 
 @app.route("/user/logout")
 def logout():

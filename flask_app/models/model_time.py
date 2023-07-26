@@ -14,10 +14,21 @@ class Time:
     # create
     @classmethod
     def create(cls, data):
-        print(data["start_time"])
         query = "INSERT INTO times (day_id, start_time, end_time) VALUES (%(day_id)s, %(start_time)s, %(end_time)s);"
         return connectToMySQL(DATABASE).query_db(query, data)
     
+    # read 
+    @classmethod
+    def get_all_on_day(cls, data):
+        query = "SELECT * FROM times WHERE day_id = %(id)s"
+        results = connectToMySQL(DATABASE).query_db(query, data)
+        if not results:
+            return []
+        all_times = []
+        for time in results:
+            all_times.append(cls(time))
+        return all_times
+
     # read 
     @classmethod
     def get_all_times(cls):

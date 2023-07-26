@@ -9,6 +9,10 @@ class Day:
         self.name = data["name"]
         self.created_at = data["created_at"]
         self.updated_at = data["updated_at"]
+
+    @property
+    def get_times(self):
+        return model_time.Time.get_all_on_day({"id": self.id})
     
     # create
     @classmethod
@@ -56,6 +60,33 @@ class Day:
         query = "SELECT * FROM days WHERE id = %(id)s"
         results = connectToMySQL(DATABASE).query_db(query, {"id": id})
         return cls(results[0])
+    
+    #read
+    # @classmethod
+    # def get_all_days(cls):
+    #     query = "SELECT * FROM days LEFT JOIN times ON days.id = times.day_id;"
+    #     results = connectToMySQL(DATABASE).query_db(query)
+
+    #     if not results:
+    #         return []
+    #     all_days = []
+    #     for day in results:
+    #         day_instance = cls(day)
+    #         day_instance.all_times = []
+    #         if day["times.id"] != None:
+    #             for time_slot in day:
+    #                 time_data = {
+    #                     **time_slot,
+    #                     "id": time_slot["times.id"],
+    #                     "created_at": time_slot["times.created_at"],
+    #                     "updated_at": time_slot["times.updated_at"]
+    #                 }
+    #                 time_instance = model_time.Time(time_data)
+    #                 day_instance.all_times.append(time_instance)
+    #     print("*" * 100)
+    #     print(all_days)
+    #     return all_days
+
 
     # read
     @classmethod

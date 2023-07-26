@@ -1,0 +1,99 @@
+{% macro modal(target, title="title goes here", content="content goes here") %}
+<div
+    class="w-100 h-100 position-absolute top-0 bg-primary d-none justify-content-center align-items-center modal-wrapper {{ target }}">
+    <div class="w-50 modal-container">
+        <div class="modal-title d-flex justify-content-between mx-3 align-items-center">
+            <h2>{{ title }}</h2>
+            <button class="modal-close-btn" target="{{ target }}">Close</button>
+        </div>
+        <div class="modal-content">
+            <p>{{ content }}</p>
+        </div>
+    </div>
+</div>
+{% endmacro %}
+{{ modal(title="Tuesday", content="My Content", target="Tuesday-modal") }}
+{{ modal(title="Tuesday", content="My Content", target="Tuesday-modal") }}
+{{ modal(title="Wednesday", content="My Content", target="Wednesday-modal") }}
+{{ modal(title="Thursday", content="My Content", target="Thursday-modal") }}
+{{ modal(title="Friday", content="My Content", target="Friday-modal") }}
+
+
+<div class="row">
+    <div class="col ms-3 mt-5">
+        <h2 class="main-title">Schedule at a Glance</h2>
+    </div>
+</div>
+<div class="row mt-5 mx-2 py-3 container-background">
+    <div class="col day-con d-flex flex-column align-items-center">
+        <h2 class="text-center weekday">MONDAY <a href="/time/create/1"><i
+        class="align-middle pb-2 cog-icon fa-solid fa-gear"></i></a></h2>
+        {% for time_slot in time_slots %}
+            {% if time_slot.day.name == "monday" %}
+            <div class="time d-flex justify-content-between gap-2 mb-2 modal-btn" target = "Monday-modal">
+                <p class="text-right time-text ps-4 pt-2">{{ time_slot.start_time }}-{{ time_slot.end_time }}</p>
+                <p class="text-black">{{ time_slot.id }}</p>
+                <div class="student-number d-flex justify-content-center align-items-center">
+                    <p class="time-text">5</p>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="col day-con d-flex flex-column align-items-center">
+        <h2 class="text-center weekday">TUESDAY <a href="/time/create/2"><i
+        class="align-middle pb-2 cog-icon fa-solid fa-gear"></i></a></h2>
+        {% for time_slot in time_slots %}
+            {% if time_slot.day.name == "tuesday" %}
+            <div class="time d-flex justify-content-between gap-2 mb-2 modal-btn" target = "Tuesday-modal">
+                <p class="text-right time-text ps-4 pt-2">{{ time_slot.start_time }}-{{ time_slot.end_time }}</p>
+                <div class="student-number d-flex justify-content-center align-items-center">
+                    <p class="time-text">5</p>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="col day-con d-flex flex-column align-items-center">
+        <h2 class="text-center weekday">WEDNESDAY <a href="/time/create/3"><i
+        class="align-middle pb-2 cog-icon fa-solid fa-gear"></i></a></h2>
+        {% for time_slot in time_slots %}
+            {% if time_slot.day.name == "wednesday" %}
+            <div class="time d-flex justify-content-between gap-2 mb-2 modal-btn" target = "Wednesday-modal">
+                <p class="text-right time-text ps-4 pt-2">{{ time_slot.start_time }}-{{ time_slot.end_time }}</p>
+                <div class="student-number d-flex justify-content-center align-items-center">
+                    <p class="time-text">5</p>
+                </div>
+            </div>  
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="col day-con d-flex flex-column align-items-center">
+        <h2 class="text-center weekday">THURSDAY <a href="/time/create/4"><i
+        class="align-middle pb-2 cog-icon fa-solid fa-gear"></i></a></h2>
+        {% for time_slot in time_slots %}
+            {% if time_slot.day.name == "thursday" %}
+            <div class="time d-flex justify-content-between gap-2 mb-2 modal-btn" target = "Thursday-modal">
+                <p class="text-right time-text ps-4 pt-2">{{ time_slot.start_time }}-{{ time_slot.end_time }}</p>
+                <div class="student-number d-flex justify-content-center align-items-center">
+                    <p class="time-text">5</p>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="col d-flex flex-column align-items-center">
+        <h2 class="text-center weekday">FRIDAY <a href="/time/create/5"><i
+        class="align-middle pb-2 cog-icon fa-solid fa-gear"></i></a></h2>
+        {% for time_slot in time_slots %}
+            {% if time_slot.day.name == "friday" %}
+            <div class="time d-flex justify-content-between gap-2 mb-2 modal-btn" target = "Friday-modal">
+                <p class="text-right time-text ps-4 pt-2">{{ time_slot.start_time }}-{{ time_slot.end_time }}</p>
+                <div class="student-number d-flex justify-content-center align-items-center">
+                    <p class="time-text">5</p>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
