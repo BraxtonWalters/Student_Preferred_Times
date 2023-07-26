@@ -1,0 +1,51 @@
+
+
+.background-image {
+    background-image: url(../img/Jackson_Library.jpg);
+    background-position: 250px -200px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 630px;
+    border-radius: 54px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.65);
+}
+
+.login-con {
+    background-color: #A6192E;
+    border-radius: 54px;
+    max-width: 50%;
+}
+
+.title-login {
+    color: #FFFFFF;
+    font-size: 40pt;
+    margin-left: 20px;
+}
+
+.form-login {
+    height: 50px;
+    margin-bottom: 20px;
+    padding-left: 25px;
+    font-size: 20pt;
+    border-radius: 10px;
+}
+
+.login-button {
+    height: 70px;
+    background-color: #002E44;
+    border: 0px;
+    font-size: 24pt;
+    font-weight: bold;
+    color: #FFFFFF;
+    border-radius: 10px;
+}
+
+.create-account-btn {
+    border: 2px solid #D9D9D9;
+    border-radius: 45px;
+    padding: 5px 30px;
+    text-decoration: none;
+    font-size: 20pt;
+    color: #FFFFFF;
+    margin-right: 20px;
+}
