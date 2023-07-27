@@ -5,26 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ url_for('static', filename='/css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/student_time_selector.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=League+Gothic&display=swap" rel="stylesheet">
     <title>Dashboard</title>
 </head>
 <body>
-    {% macro modal(target, title, content) %}
-    <div class="w-100 h-100 d-none justify-content-center align-items-center modal-wrapper {{ target }}">
-        <div class="w-50 modal-container">
-            <div class="modal-title d-flex justify-content-between mx-3 align-items-center">
-                <h2>{{ title.upper() }}</h2>
-                <button class="modal-close-btn px-5 text-white fs-4 " target="{{ target }}">Close</button>
-            </div>
-            <div class="modal-content">
-                <p>{{ content.start_time }} - {{ content.end_time }}</p>
-            </div>
-        </div>
-    </div>
-    {% endmacro %}
     <header class="container-fluid bg-body-tertiary py-3 header-con">
         <div class="row d-flex justify-content-between align-items-center">
             <div class="col">
@@ -37,11 +24,8 @@
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">{{ user.full_name }}</a>
+                            aria-expanded="false">{{ user.first_name }}</a>
                         <ul class="dropdown-menu ">
-                            <li><a class="dropdown-item" href="#">Student Dashboard</a></li>
-                            <li><a class="dropdown-item" href="#">Student List</a></li>
-                            <li><a class="dropdown-item" href="#">Settings</a></li>
                             <li><a class="dropdown-item" href="/user/logout">Sign Out</a></li>
                         </ul>
                     </li>
@@ -49,37 +33,39 @@
             </div>
         </div>
     </header>
-    <main class="container-fluid">
-        <div class="row">
-            <div class="col ms-3 mt-5">
-                <h2 class="main-title">Schedule at a Glance</h2>
-            </div>
+    <div class="row">
+        <div class="col ms-3 mt-5">
+            <h2 class="main-title">Pick the Times you Prefer to Work!</h2>
         </div>
-        <div class="d-flex justify-content-evenly mt-1 mx-2 py-3 container-background">
+    </div>
+    <form action="/student/times", method="POST">
+        <div class="d-flex justify-content-evenly mt-3 mx-2 py-3 container-background">
             {% for day in all_days %}
             <div>
-            <h2 class="text-center weekday">{{day.name.upper()}} <a href="/time/create/{{day.id}}">
-            <i class="align-middle pb-2 cog-icon fa-solid fa-gear"></i></a></h2>
+                <h2 class="text-center weekday">{{day.name.upper()}}</h2>
                 {% for time_slot in day.get_times %}
                 <div class="col d-flex flex-column align-items-center">
                     <div class="time d-flex justify-content-between gap-2 mb-2 modal-btn" target = "{{ day.name }}-{{ time_slot.id }}-modal">
                         <p class="text-right time-text ps-4 pt-2">{{ time_slot.start_time }}-{{ time_slot.end_time }}</p>
                         <div class="student-number d-flex justify-content-center align-items-center">
-                            <p class="time-text">5</p>
+                            <input class="mb-2" type="checkbox" name="{{ time_slot.id }}">
                         </div>
                     </div>
                 </div>
-                {{ modal(title=day.name, content=time_slot, target=day.name+"-"+ time_slot.id | string+"-modal") }}
                 {% endfor %}
             </div>
-        {% endfor %}
+            {% endfor %}
+            <div class="row">
+                <div class="col d-flex flex-column justify-content-end">
+                    <input class="btn btn-danger me-5" type="submit" value="submit">
+                </div>
+            </div>
         </div>
-    </main>
-    <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
-    <script src="https://kit.fontawesome.com/e71eff5305.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-    crossorigin="anonymous">
+    </form>
+</body>
+<script src="https://kit.fontawesome.com/e71eff5305.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
     </script>
 </body>
 </html>

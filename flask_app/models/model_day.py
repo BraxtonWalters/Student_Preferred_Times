@@ -106,7 +106,5 @@ class Day:
     def delete(cls, id):
         query = "DELETE FROM days where id = %(id)s"
         return connectToMySQL(DATABASE).query_db(query, {"id": id})
-    
-                    
-                    
+
 
