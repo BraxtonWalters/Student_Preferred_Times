@@ -55,7 +55,6 @@ class Day:
                     ) AS ths ON ths.time_id = times.id;
                 """
         results = connectToMySQL(DATABASE).query_db(query)
-        print(results)
         week_schedule = {"mon": {},
                          "tues": {},
                          "wed" : {},
@@ -102,7 +101,6 @@ class Day:
                     week_schedule["fri"][time_slot] = [student]
                 else:
                     week_schedule["fri"][time_slot].append(student)
-        print(week_schedule)
         return week_schedule
     
     @classmethod

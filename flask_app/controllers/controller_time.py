@@ -26,7 +26,8 @@ def time_edit(id):
 def time_update(id):
     data = {**request.form}
     Time.update(data)
-    return redirect("/")
+    print(data)
+    return redirect(f"/time/create/{request.form['day_id']}")
 
 
 @app.route("/time/delete/<int:id>")

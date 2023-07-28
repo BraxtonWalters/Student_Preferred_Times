@@ -20,6 +20,7 @@
                 <button class="modal-close-btn px-5 text-white fs-4 " target="{{ target }}">Close</button>
             </div>
             <div>
+                {% if content.get_students %}
                 <table class="table">
                     <thead>
                       <tr>
@@ -36,6 +37,9 @@
                         {% endfor %}
                     </tbody>
                   </table>
+                {% else %}
+                    <h2 class="ms-5 mt-3">No students have picked this time slot!</h2>
+                {% endif %}
             </div>
         </div>
     </div>
