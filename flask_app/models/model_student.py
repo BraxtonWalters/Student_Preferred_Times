@@ -1,6 +1,7 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app import DATABASE, DATABASE, EMAIL_REGEX, NAME_REGEX, PASSWORD_REGEX
 from flask import flash
+from flask_app.models import model_student
 
 class Student:
     def __init__(self, data):
@@ -22,6 +23,23 @@ class Student:
     def time_has_students(cls, data):
         query = "INSERT INTO times_has_students (time_id, student_id) VALUES (%(time_id)s, %(student_id)s);"
         connectToMySQL(DATABASE).query_db(query, data)
+    
+    @classmethod
+    def get_all_students_on_time(cls, data):
+        query = "SELECT * FROM times_has_students LEFT JOIN students ON times_has_students.student_id = students.id WHERE time_id = %(id)s"
+        results = connectToMySQL(DATABASE).query_db(query, data)
+        if not results:
+            return []
+        all_students = []
+        for student in results:
+            student_data = {
+                **student,
+                "id": student["students.id"],
+                "created_at": student["students.created_at"],
+                "updated_at": student["students.updated_at"]
+            }
+            all_students.append(cls(student_data))
+        return all_students
 
     # Read
     @classmethod

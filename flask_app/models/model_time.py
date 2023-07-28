@@ -1,6 +1,6 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app import DATABASE
-from flask_app.models import model_day
+from flask_app.models import model_day, model_student
 
 class Time:
     def __init__(self, data):
@@ -10,6 +10,11 @@ class Time:
         self.end_time = data["end_time"]
         self.created_at = data["created_at"]
         self.updated_at = data["updated_at"]
+
+    @property
+    def get_students(self):
+        return model_student.Student.get_all_students_on_time({"id": self.id})
+
 
     # create
     @classmethod

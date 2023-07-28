@@ -31,6 +31,144 @@ class Day:
             
         return all_days
     
+    @classmethod
+    def get_schedule(cls):
+        query = """
+                SELECT 
+                    days.*,
+                    times.*,
+                    ths.*
+                FROM 
+                    days
+                JOIN
+                    times ON days.id = times.day_id
+                LEFT JOIN 
+                    (
+                    SELECT 
+                        times_has_students.time_id,
+                        times_has_students.student_id,
+                        students.*
+                    FROM
+                        times_has_students
+                    LEFT JOIN 
+                        students ON times_has_students.student_id = students.id
+                    ) AS ths ON ths.time_id = times.id;
+                """
+        results = connectToMySQL(DATABASE).query_db(query)
+        print(results)
+        week_schedule = {"mon": {},
+                         "tues": {},
+                         "wed" : {},
+                         "thur": {},
+                         "fri": {}}
+        # each index should contain a list of time objects
+        # every time object needs a list of student objects
+        # if there are no student for that time slot then we want an empty list
+        for row in results:
+            time_slot = row["start_time"] + "-" + row["end_time"]
+            student = {
+                "id": row["student_id"],
+                "first_name": row["first_name"],
+                "last_name": row["last_name"],
+                "email": row["email"],
+                "password": row["password"]
+            }
+            if row["name"] == "monday":
+                if time_slot not in week_schedule["mon"]:
+                    week_schedule["mon"][time_slot] = [student]
+                else:
+                    week_schedule["mon"][time_slot].append(student)
+
+            elif row["name"] == "tuesday":
+                if time_slot not in week_schedule["tues"]:
+                    week_schedule["tues"][time_slot] = [student]
+                else:
+                    week_schedule["tues"][time_slot].append(student)
+
+            elif row["name"] == "wednesday":
+                if time_slot not in week_schedule["wed"]:
+                    week_schedule["wed"][time_slot] = [student]
+                else:
+                    week_schedule["wed"][time_slot].append(student)
+
+            elif row["name"] == "thursday":
+                if time_slot not in week_schedule["thur"]:
+                    week_schedule["thur"][time_slot] = [student]
+                else:
+                    week_schedule["thur"][time_slot].append(student)
+
+            else:
+                if time_slot not in week_schedule["fri"]:
+                    week_schedule["fri"][time_slot] = [student]
+                else:
+                    week_schedule["fri"][time_slot].append(student)
+        print(week_schedule)
+        return week_schedule
+    
+    @classmethod
+    def get_schedule2(cls):
+        query = """
+                SELECT 
+                    days.*,
+                    times.*,
+                    ths.*
+                FROM 
+                    days
+                JOIN
+                    times ON days.id = times.day_id
+                LEFT JOIN 
+                    (
+                    SELECT 
+                        times_has_students.time_id,
+                        times_has_students.student_id,
+                        students.*
+                    FROM
+                        times_has_students
+                    LEFT JOIN 
+                        students ON times_has_students.student_id = students.id
+                    ) AS ths ON ths.time_id = times.id;
+                """
+        results = connectToMySQL(DATABASE).query_db(query)
+        week_schedule = []
+        # each index should contain a list of time objects
+        # every time object needs a list of student objects
+        # if there are no student for that time slot then we want an empty list
+        for row in results:
+            time_slot = row["start_time"] + "-" + row["end_time"]
+            student = {
+                "id": row["student_id"],
+                "first_name": row["first_name"],
+                "last_name": row["last_name"],
+                "email": row["email"],
+                "password": row["password"],
+            }
+            if row["name"] == "monday":
+                if time_slot not in week_schedule["mon"]:
+                    week_schedule["mon"][time_slot] = [student]
+                else:
+                    week_schedule["mon"][time_slot].append(student)
+            elif row["name"] == "tuesday":
+                if time_slot not in week_schedule["mon"]:
+                    week_schedule["mon"][time_slot] = [student]
+                else:
+                    week_schedule["mon"][time_slot].append(student)
+            elif row["name"] == "wednesday":
+                if time_slot not in week_schedule["mon"]:
+                    week_schedule["mon"][time_slot] = [student]
+                else:
+                    week_schedule["mon"][time_slot].append(student)
+            elif row["name"] == "thursday":
+                if time_slot not in week_schedule["mon"]:
+                    week_schedule["mon"][time_slot] = [student]
+                else:
+                    week_schedule["mon"][time_slot].append(student)
+            else:
+                if time_slot not in week_schedule["mon"]:
+                    week_schedule["mon"][time_slot] = [student]
+                else:
+                    week_schedule["mon"][time_slot].append(student)
+        return week_schedule
+    
     #read
     @classmethod
     def get_all_times(cls, data):
@@ -61,33 +199,6 @@ class Day:
         results = connectToMySQL(DATABASE).query_db(query, {"id": id})
         return cls(results[0])
     
-    #read
-    # @classmethod
-    # def get_all_days(cls):
-    #     query = "SELECT * FROM days LEFT JOIN times ON days.id = times.day_id;"
-    #     results = connectToMySQL(DATABASE).query_db(query)
-
-    #     if not results:
-    #         return []
-    #     all_days = []
-    #     for day in results:
-    #         day_instance = cls(day)
-    #         day_instance.all_times = []
-    #         if day["times.id"] != None:
-    #             for time_slot in day:
-    #                 time_data = {
-    #                     **time_slot,
-    #                     "id": time_slot["times.id"],
-    #                     "created_at": time_slot["times.created_at"],
-    #                     "updated_at": time_slot["times.updated_at"]
-    #                 }
-    #                 time_instance = model_time.Time(time_data)
-    #                 day_instance.all_times.append(time_instance)
-    #     print("*" * 100)
-    #     print(all_days)
-    #     return all_days
-
-
     # read
     @classmethod
     def get_by_name(cls, name):

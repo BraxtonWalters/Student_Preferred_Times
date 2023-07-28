@@ -6,3 +6,49 @@
     font-size: 35pt;
     font-family: 'League Gothic', sans-serif;
 }
+
+
+.create-con{
+    background-color: #F4F4F4;
+    border-radius: 30px;
+    box-shadow: 5px 5px 20px 0px rgba(0, 0, 0, 0.65);
+}
+
+.time {
+    background-color: #315667;
+    width: 220px;
+    max-height: 59px;
+    border-radius: 36px;
+}
+
+.student-number {
+    height: 59px;
+    width: 59px;
+    border-radius: 36px;
+    background-color: #002E44;
+
+}
+
+.time-text {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.time-icon{
+    color: white;
+    font-size: 1.1rem;
+    margin-right: 5px;
+}
+
+.label-text {
+    font-size: 1.5rem;
+}
+
+.brand-btn {
+    color: white;
+    font-size: 1.2rem;
+    background-color: #A6192E;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 5px 5px 20px 0px rgba(0, 0, 0, 0.65);
+}

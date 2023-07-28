@@ -32,9 +32,9 @@ def dashboard():
     if "user_id" not in session:
         return redirect("/")
     user = User.get_by_id({"id": session["user_id"]})
-    time_slots = Time.get_all_times()
     all_days = Day.get_all_days()
-    return render_template("dashboard.html", user=user, time_slots=time_slots, all_days=all_days)
+    testy_boy = Day.get_schedule()
+    return render_template("dashboard.html", user=user, all_days=all_days, testy_boy=testy_boy)
 
 @app.route("/user/logout")
 def logout():

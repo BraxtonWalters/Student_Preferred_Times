@@ -1,0 +1,27 @@
+.header-con {
+    position: fixed;
+    z-index: 0;
+}
+
+.header-logo {
+    height: 92px;
+}
+
+.header-title {
+    font-size: 35pt;
+    font-family: 'League Gothic', sans-serif;
+}
+
+.main-title {
+    font-size: 35pt;
+    color: white;
+    font-family: 'League Gothic', sans-serif;
+
+}
+
+.message-con {
+    background-color: #A6192E;
+    margin-top: 500px;
+    max-width: 600px;
+    border-radius: 15px;
+}

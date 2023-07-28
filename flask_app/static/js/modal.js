@@ -1,8 +1,15 @@
 const allModelBtns = document.querySelectorAll(".modal-btn");
 
-// const modalWraper = document.querySelector('.modal-wrapper');
-
 const allModalClose = document.querySelectorAll(".modal-close-btn");
+
+const textNums = document.querySelectorAll(".time-text");
+
+textNums.forEach(ptag => {
+    if (ptag.innerText === "0") {
+        ptag.parentElement.parentElement.style.backgroundColor = "rgba(166, 25, 46, 0.80)";
+        ptag.parentElement.style.backgroundColor = "#A6192E"
+    }
+})
 
 allModalClose.forEach(btn => {
     btn.addEventListener("click", function(){
@@ -13,14 +20,10 @@ allModalClose.forEach(btn => {
     })
 })
 
-
-
 allModelBtns.forEach(btn => {
     btn.addEventListener("click", function(){
-        console.log("I'm clicked");
         let wrapperName = btn.getAttribute("target")
         let wrapper = document.querySelector(`.${wrapperName}`)
-        console.log(wrapper);
         wrapper.classList.remove("d-none");
         wrapper.classList.add("d-flex");
     })

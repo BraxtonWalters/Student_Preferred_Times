@@ -5,6 +5,8 @@ from flask_app.models.model_day import Day
 
 @app.route("/student/create/")
 def student_create():
+    if "student_id" in session:
+        return redirect("/student/thankyou")
     return render_template("create_student.html")
 
 @app.route("/student/add", methods=["POST"])
@@ -20,6 +22,8 @@ def student_add():
 
 @app.route("/student/time/slots")
 def student_time_slots():
+   if "student_id" not in session:
+       return redirect("/student/create/")
    all_days = Day.get_all_days()
    user = Student.get_by_id({"id": session["student_id"]})
    return render_template("student_time_selector.html", all_days=all_days, user=user)
@@ -33,5 +37,12 @@ def student_times():
         time_data["time_id"] = int(key)
         time_data["student_id"] = user.id
         Student.time_has_students(time_data)
-    return redirect("/student/create/")
+    return redirect("/student/thankyou")
 
+@app.route("/student/thankyou")
+def student_thankyou():
+    if "student_id" not in session:
+        return redirect("/student/create/")
+    user = Student.get_by_id({"id": session["student_id"]})
+    session.pop("student_id")
+    return render_template("student_thankyou.html", user=user)

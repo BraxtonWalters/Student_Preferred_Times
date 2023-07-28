@@ -16,23 +16,23 @@
                 </div>
                 <form action="/user/create" method="POST">
                     <input class="form-control form-login" type="text" placeholder="First Name" name="first_name" id="email">
-                    {% for message in get_flashed_messages(category_filter=["error_users_first_name"]) %}
+                    {% for message in get_flashed_messages(category_filter=["error_students_first_name"]) %}
                     <p class="text-info">{{ message }}</p>
                     {% endfor %}
                     <input class="form-control form-login" type="text" placeholder="Last Name" name="last_name" id="last_name">
-                    {% for message in get_flashed_messages(category_filter=["error_users_last_name"]) %}
+                    {% for message in get_flashed_messages(category_filter=["error_students_last_name"]) %}
                     <p class="text-info">{{ message }}</p>
                     {% endfor %}
                     <input class="form-control form-login" type="text" placeholder="Email" name="email">
-                    {% for message in get_flashed_messages(category_filter=["error_users_email_name"]) %}
+                    {% for message in get_flashed_messages(category_filter=["error_students_email"]) %}
                     <p class="text-info">{{ message }}</p>
                     {% endfor %}
                     <input class="form-control form-login" type="password" placeholder="Password" name="password">
-                    {% for message in get_flashed_messages(category_filter=["error_users_password"]) %}
+                    {% for message in get_flashed_messages(category_filter=["error2_students_password"]) %}
                     <p class="text-info">{{ message }}</p>
                     {% endfor %}
                     <input class="form-control form-login" type="password" placeholder="Confirm Password" name="confirm_password">
-                    {% for message in get_flashed_messages(category_filter=["error2_user_password"]) %}
+                    {% for message in get_flashed_messages(category_filter=["error2_students_password"]) %}
                     <p class="text-info">{{ message }}</p>
                     {% endfor %}
                     <input class="form-control login-button" type="submit" value="Register">
